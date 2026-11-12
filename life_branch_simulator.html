@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人生岔路口｜人生分支模擬器</title>
+<style>
+:root{--ink:#263238;--muted:#65747b;--paper:#fffdf8;--cream:#f4efe5;--line:#e6dfd2;--accent:#547b72;--accent2:#d58b62;--soft:#eaf1ed;--shadow:0 14px 40px #26323812}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#f5f0e7,#eaf0eb);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;line-height:1.65}
+button{font:inherit;cursor:pointer}.wrap{max-width:1080px;margin:auto;padding:28px 18px 60px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.brand{font-weight:900;letter-spacing:.08em}.brand span{color:var(--accent)}.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:99px;background:#ffffff90}
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,5vw,52px);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"↗";position:absolute;right:28px;top:12px;font-size:110px;color:#547b7210;font-weight:900}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;margin:10px 0 14px;max-width:700px}.hero p{max-width:680px;color:var(--muted);margin:0 0 24px}.primary,.secondary,.choice{border:0;border-radius:14px;padding:13px 18px;font-weight:750;transition:.18s}.primary{background:var(--accent);color:white}.primary:hover{transform:translateY(-2px);filter:brightness(1.06)}.secondary{background:#f1eee7;color:var(--ink);border:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.origin{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;text-align:left;min-height:150px;transition:.18s}.origin:hover,.origin.selected{border-color:var(--accent);box-shadow:0 0 0 2px #547b7220;transform:translateY(-2px)}.origin .emoji{font-size:27px}.origin strong{display:block;margin:5px 0}.origin small{color:var(--muted);display:block}.section{margin-top:26px}.section h2{font-size:21px;margin:0 0 12px}.hidden{display:none!important}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow);margin-top:18px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.age{font-size:14px;color:var(--muted)}.age b{font-size:26px;color:var(--ink)}.progress{height:8px;background:#ece8df;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress span{display:block;height:100%;background:var(--accent);width:0;transition:width .4s}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:18px 0}.stat{background:#f4f1e9;border-radius:14px;padding:10px 12px}.stat label{font-size:11px;color:var(--muted);display:block}.stat b{font-size:18px}.stat .meter{height:5px;background:#dfd9cd;border-radius:99px;margin-top:6px;overflow:hidden}.stat .meter i{display:block;height:100%;background:var(--accent)}
+.event{background:var(--soft);border:1px solid #d9e5dd;border-radius:18px;padding:20px;margin:16px 0}.event .kind{font-size:11px;letter-spacing:.12em;color:var(--accent);font-weight:900}.event h2{font-size:24px;line-height:1.3;margin:6px 0}.event p{color:#52635e;margin:0 0 12px}.choices{display:grid;gap:10px}.choice{background:#fff;border:1px solid var(--line);text-align:left;padding:15px 16px;color:var(--ink);display:flex;justify-content:space-between;gap:12px;align-items:center}.choice:hover{border-color:var(--accent);background:#fbfdfb;transform:translateX(2px)}.choice small{display:block;color:var(--muted);font-weight:450;margin-top:3px}.choice .arrow{color:var(--accent);font-size:20px}
+.log{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}.log:last-child{border:0}.log time{min-width:52px;color:var(--accent);font-weight:800}.log p{margin:0;color:var(--muted)}
+.columns{display:grid;grid-template-columns:1.4fr .8fr;gap:16px}.sidebox{background:#f4f1e9;border-radius:18px;padding:17px}.sidebox h3{margin:0 0 8px;font-size:15px}.ending{font-size:16px;color:var(--muted)}
+footer{text-align:center;color:#87918d;font-size:12px;margin-top:24px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}.hero:after{font-size:70px;right:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand">↗ <span>人生岔路口</span></div><div class="tag">一場沒有標準答案的人生模擬</div></header>
+<main>
+<section id="start" class="hero">
+<div class="eyebrow">YOUR LIFE, YOUR BRANCHES</div>
+<h1>如果人生，<br>從另一個起點開始？</h1>
+<p>你無法選擇出生，但可以在每個岔路口做決定。從童年到老年，遇見機會、意外、貴人與難題。沒有完美路線，每個選擇都會留下痕跡。</p>
+<div class="section"><h2>選擇你的出生背景</h2><p style="font-size:13px;margin:0 0 14px">背景不是命運判決，只代表你一開始擁有的資源、環境與可能遇到的課題。</p>
+<div id="origins" class="grid"></div></div>
+<div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="primary" id="begin" disabled>從這個起點開始 →</button><span style="font-size:12px;color:var(--muted)">每局約 10–15 個人生階段，可重新體驗</span></div>
+</section>
+<section id="game" class="hidden">
+<div class="panel">
+<div class="topline"><div><div class="eyebrow" id="originName">你的故事</div><div class="age"><b id="age">0</b> 歲・<span id="yearLabel">人生剛開始</span></div></div><button class="secondary" id="restart">重新開始</button></div>
+<div class="progress"><span id="progress"></span></div>
+<div class="stats" id="stats"></div>
+<div class="columns">
+<div>
+<div class="event"><div class="kind" id="eventKind">人生事件</div><h2 id="eventTitle"></h2><p id="eventText"></p><div class="choices" id="choices"></div></div>
+</div>
+<aside class="sidebox"><h3>人生記事</h3><div id="log"><p style="font-size:13px;color:var(--muted)">你的故事即將展開。</p></div></aside>
+</div>
+</div>
+</section>
+<section id="ending" class="hidden">
+<div class="hero"><div class="eyebrow">YOUR STORY SO FAR</div><h1>這就是你走過的人生。</h1><p id="endingText" class="ending"></p><div class="stats" id="finalStats"></div><h2>一路上的重要片段</h2><div id="finalLog"></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px"><button class="primary" id="again">換個出生背景，再玩一次</button><button class="secondary" id="replay">相同背景重新開始</button></div></div>
+</section>
+</main>
+<footer>人生模擬器・原創互動故事｜每個數值只是遊戲設定，不代表真實人生的價值。</footer>
+</div>
+<script>
+const origins=[
+{id:"ordinary",emoji:"🏘️",name:"普通家庭的小孩",desc:"生活穩定但資源有限，很多事需要自己摸索。",s:{money:48,health:72,relation:60,skill:42},trait:"務實"},
+{id:"wealthy",emoji:"🏙️",name:"資源充足的家庭",desc:"有較多教育與探索機會，也可能背負期待。",s:{money:82,health:70,relation:52,skill:50},trait:"選擇多"},
+{id:"rural",emoji:"🌾",name:"偏鄉／農村出生",desc:"社區緊密、生活步調不同，升學與交通可能是挑戰。",s:{money:38,health:75,relation:72,skill:38},trait:"韌性"},
+{id:"single",emoji:"🧡",name:"單親家庭",desc:"家人努力撐起生活，你較早學會體諒與分擔。",s:{money:35,health:68,relation:58,skill:45},trait:"早熟"},
+{id:"migrant",emoji:"🧳",name:"跨文化／新住民家庭",desc:"在不同文化間長大，可能擁有多語與適應力。",s:{money:43,health:70,relation:55,skill:52},trait:"跨文化"},
+{id:"artist",emoji:"🎨",name:"創作者家庭",desc:"家裡鼓勵想像與表達，但收入或生活節奏較不固定。",s:{money:40,health:68,relation:64,skill:58},trait:"創意"},
+{id:"care",emoji:"🤝",name:"隔代教養家庭",desc:"由祖父母或親戚照顧，家庭連結深，也有世代差異。",s:{money:42,health:70,relation:65,skill:40},trait:"懂事"},
+{id:"island",emoji:"🌊",name:"離島／海邊小鎮出生",desc:"自然與地方人情豐富，遠距離資源和交通是考驗。",s:{money:40,health:76,relation:70,skill:42},trait:"獨立"},
+{id:"entrepreneur",emoji:"🛠️",name:"小生意家庭",desc:"從小看見經營的辛苦，可能早早接觸人情與金錢。",s:{money:53,health:70,relation:62,skill:48},trait:"靈活"},
+{id:"newstart",emoji:"🌱",name:"重新起步的家庭",desc:"家中正在經歷搬家、轉職或生活重整，變動比較多。",s:{money:32,health:67,relation:56,skill:46},trait:"適應"}
+];
+const events=[
+{age:[0,5],kind:"童年・家庭",title:"家裡最近有點忙",text:"照顧你的人最近工作變忙，家中時間和資源都需要重新安排。",opts:[["多和家人相處","一起吃飯、聊天，讓關係更緊密。",{relation:8,health:2}],["參加社區活動","認識鄰居和同齡朋友。",{relation:5,skill:3}],["培養自己的小興趣","從玩耍中找到喜歡的事。",{skill:6}]]},
+{age:[5,9],kind:"童年・意外插曲",title:"轉學的消息",text:"因為家人工作或居住安排，你可能要換一間學校。",opts:[["把它當成新冒險","主動認識同學，試著融入。",{skill:6,relation:5}],["先和熟悉的朋友保持聯絡","慢慢適應，不急著改變。",{relation:7,health:2}],["請大人幫忙了解新學校","先弄清楚環境和交通。",{skill:4,money:-2}]]},
+{age:[8,12],kind:"童年・能力",title:"你發現自己擅長一件事",text:"可能是畫畫、運動、照顧植物、說故事，或拆解玩具。有人建議你多花時間練習。",opts:[["報名課程或社團","有系統地學習，但會花一些資源。",{skill:10,money:-4}],["自己找方法練習","自由安排，靠好奇心前進。",{skill:7,health:2}],["先把時間留給朋友和玩樂","童年也需要自在探索。",{relation:7,health:5}]]},
+{age:[10,15],kind:"青春期・人際",title:"朋友圈出現變化",text:"幾個好朋友開始有不同興趣，也有人邀你加入新的團體。",opts:[["勇敢認識新朋友","擴大生活圈。",{relation:7,skill:3}],["和老朋友好好聊聊","珍惜原本的關係。",{relation:8}],["把重心放回自己","找出真正喜歡的事。",{skill:6,health:4}]]},
+{age:[13,17],kind:"青春期・升學",title:"升學方向要怎麼選？",text:"你開始思考高中職、專業技能或其他學習路線。家人和老師各有建議。",opts:[["選擇普通高中路線","保留較多學科與升學選項。",{skill:8,money:-2}],["選擇技職或專業學習","提早累積實作經驗。",{skill:9,money:2}],["探索多元課程與興趣","先找到適合自己的方向。",{skill:6,relation:3}]]},
+{age:[15,19],kind:"青春期・突發事件",title:"家中遇到一筆意外支出",text:"家裡有設備需要修繕，或突然出現額外開銷。大人正在想辦法處理。",opts:[["一起討論怎麼調整生活","學習規劃，不把責任全攬在自己身上。",{skill:5,relation:5}],["暫時減少非必要花費","生活安排變得更精簡。",{money:5,health:-1}],["找可信任的大人討論資源","多了解有哪些協助方式。",{relation:4,skill:5}]]},
+{age:[17,22],kind:"成年初期・重大抉擇",title:"要不要讀大學？",text:"你可以繼續升學，也可以先工作、學技術，或用其他方式探索未來。",opts:[["讀大學","投入幾年學習，累積知識與人脈。",{skill:13,money:-9,relation:3}],["先工作再決定","提早累積經驗，也更了解自己。",{money:7,skill:5}],["讀技職／專業培訓","把時間投入明確技能。",{skill:10,money:-3}],["休息一段時間探索方向","整理想法、做志工或短期體驗。",{health:5,skill:5,money:-2}]]},
+{age:[19,25],kind:"成年初期・工作",title:"第一份工作或實習",text:"你收到不同機會：穩定、自由、學習快，或離家較遠。",opts:[["選穩定的工作","收入較可預期，步調相對固定。",{money:10,health:3,skill:3}],["選成長快速的工作","挑戰多，可能學得很快。",{skill:10,money:5,health:-4}],["嘗試接案或自由工作","自主性高，收入起伏也較大。",{skill:7,money:2,health:-2}],["繼續進修或考證照","先投資未來的專業能力。",{skill:11,money:-5}]]},
+{age:[22,29],kind:"成年・意外機會",title:"一個意想不到的邀請",text:"朋友邀你加入新專案、搬去另一個城市，或一起嘗試從沒做過的事。",opts:[["接受挑戰","走出熟悉圈，看看會發生什麼。",{skill:8,relation:4,money:-3}],["先做功課再決定","評估成本、風險和自己的狀態。",{skill:5,money:2}],["婉拒，守住目前生活","把心力留給現有目標。",{health:5,relation:2}]]},
+{age:[24,32],kind:"成年・關係",title:"一段重要關係正在改變",text:"你和某個重要的人開始討論未來：要維持現狀、一起生活，還是重新調整彼此的距離。",opts:[["認真溝通彼此期待","讓關係有機會更成熟。",{relation:10,skill:3}],["先把個人目標顧好","給自己時間想清楚。",{skill:5,health:4}],["一起規劃共同生活","承擔更多責任，也建立新的日常。",{relation:7,money:-4}]]},
+{age:[27,36],kind:"成年・人生選擇",title:"結婚，或選擇自己的生活方式？",text:"你開始思考長期伴侶、婚姻與承諾。結婚不是必經關卡，重要的是選擇是否符合彼此期待。",opts:[["和伴侶討論結婚","確認價值觀、生活分工與未來計畫。",{relation:9,money:-5,skill:3}],["維持伴侶關係但暫不結婚","保留彈性，持續溝通。",{relation:6,health:3}],["目前選擇單身","把時間投入自己重視的生活。",{health:5,skill:4,relation:1}],["重新檢視這段關係","誠實面對是否適合一起走下去。",{skill:5,health:3,relation:-2}]]},
+{age:[29,39],kind:"成年・家庭",title:"要不要成為父母？",text:"你開始思考是否想養育孩子。這牽涉時間、照顧支持、經濟與個人意願，不是每個人都要做相同選擇。",opts:[["和伴侶一起規劃孩子","先討論照顧分工與支持系統。",{relation:9,money:-8,health:-2}],["暫時不生，之後再評估","保留選擇空間。",{money:4,health:3,skill:2}],["決定不生小孩","把生活規劃放在其他重視的方向。",{health:4,money:4,skill:3}],["先照顧家人或投入社區","用不同方式建立家庭與連結。",{relation:8,skill:3}]]},
+{age:[32,42],kind:"成年・職涯轉折",title:"工作開始遇到瓶頸",text:"你熟悉目前的工作，但成長變慢；另一個領域看起來很有吸引力。",opts:[["留在原領域爭取升遷","累積資歷與穩定度。",{money:8,skill:5}],["轉職或轉換跑道","重新學習，短期可能比較辛苦。",{skill:9,money:-3,health:-2}],["發展副業或個人專案","多一條可能性，但要安排時間。",{skill:7,money:4,health:-3}],["調整工時重視生活","把時間留給健康與關係。",{health:8,relation:5,money:-2}]]},
+{age:[35,45],kind:"意外事件・家庭",title:"家人需要更多陪伴",text:"家中有人遇到生活變化，需要你花時間陪伴、協調或尋找合適的支援。",opts:[["和家人分工合作","不讓責任只落在一個人身上。",{relation:8,health:2}],["尋找社區或專業資源","建立更穩定的支持網。",{skill:5,relation:5,money:-2}],["調整自己的工作安排","多留一些時間給重要的人。",{relation:7,health:4,money:-4}]]},
+{age:[38,49],kind:"中年・財務抉擇",title:"一個大筆支出計畫",text:"可能是進修、搬家、照顧家人或改善居住環境。你需要衡量長期需求與手上資源。",opts:[["先存錢，延後計畫","降低壓力，慢慢準備。",{money:8,health:3}],["設定預算後執行","有計畫地使用資源。",{money:-4,skill:5}],["尋求可信任的專業建議","多了解條件，再做決定。",{skill:7,money:-1}]]},
+{age:[42,55],kind:"中年・意外機會",title:"老同學帶來新消息",text:"一位久未聯絡的朋友邀你合作、旅行，或參與一個有意義的社區計畫。",opts:[["重新建立聯絡","讓老關係有新的可能。",{relation:8,health:2}],["加入有興趣的計畫","累積新的經驗與成就感。",{skill:7,relation:4,money:-2}],["婉拒並安排休息","把自己的步調放在前面。",{health:7}]]},
+{age:[48,60],kind:"中年・生活重整",title:"你想重新定義成功",text:"你回頭看看一路走來的生活，發現自己在意的事情和年輕時不太一樣。",opts:[["追求新的專業目標","再次挑戰自己。",{skill:8,money:3}],["把時間留給關係與興趣","讓生活有更多不同的重心。",{relation:6,health:6}],["投入志工或地方事務","把經驗分享給更多人。",{relation:8,skill:4}]]},
+{age:[55,68],kind:"熟齡・退休規劃",title:"接近退休或第二職涯",text:"你開始思考未來的時間要怎麼安排：繼續工作、轉成兼職，或投入新的興趣。",opts:[["逐步退休","安排生活節奏與日常活動。",{health:6,money:-2,relation:4}],["發展第二職涯","繼續運用經驗，也學新事物。",{skill:7,money:5}],["投入家庭與社區","增加陪伴和人際連結。",{relation:8,health:3}],["持續工作一段時間","維持熟悉的生活與收入。",{money:6,health:-2}]]},
+{age:[60,74],kind:"晚年・突發狀況",title:"生活環境需要調整",text:"一次跌倒驚嚇或居住環境變化，讓你開始重視居家安全、交通便利與日常支援。",opts:[["改善居家環境","讓生活空間更安全好用。",{money:-4,health:7}],["和家人討論支援方式","把需求說清楚，安排互相協助。",{relation:8,health:4}],["尋找社區照顧與活動","維持社交和生活自主。",{relation:6,health:5}]]},
+{age:[65,80],kind:"晚年・人生抉擇",title:"你想把時間留給什麼？",text:"你有機會安排一段新的生活：旅行、學習、陪伴親友，或整理一路累積的故事。",opts:[["去完成一個小小心願","讓好奇心繼續帶路。",{health:4,skill:5,money:-3}],["陪伴重要的人","把時間留給關係。",{relation:9,health:3}],["學習新技能或新科技","保持探索與連結。",{skill:8,relation:3}],["整理回憶、分享經驗","把自己的故事留給下一代。",{relation:6,skill:5}]]},
+{age:[72,90],kind:"晚年・意外事件",title:"計畫突然被打亂",text:"原本安排好的生活遇到變化，可能是交通不便、家人搬遷，或活動取消。你需要重新安排日常。",opts:[["找朋友一起想新方法","互相幫忙，建立新的安排。",{relation:7,skill:3}],["尋求社區支援","善用身邊可取得的服務。",{skill:5,health:4}],["改成適合自己的慢步調","接受變化，重新安排生活。",{health:6,relation:2}]]}
+];
+let selected=null,state=null,history=[],used=[];
+const $=id=>document.getElementById(id);
+function renderOrigins(){ $('origins').innerHTML=origins.map(o=>`<button class="origin" data-id="${o.id}"><span class="emoji">${o.emoji}</span><strong>${o.name}</strong><small>${o.desc}</small></button>`).join('');document.querySelectorAll('.origin').forEach(b=>b.onclick=()=>{selected=origins.find(o=>o.id===b.dataset.id);document.querySelectorAll('.origin').forEach(x=>x.classList.toggle('selected',x===b));$('begin').disabled=false;});}
+function clamp(v){return Math.max(0,Math.min(100,v))}
+function statsHTML(s){return [['money','資源'],['health','活力'],['relation','關係'],['skill','能力']].map(([k,n])=>`<div class="stat"><label>${n}</label><b>${s[k]}</b><div class="meter"><i style="width:${s[k]}%"></i></div></div>`).join('')}
+function start(){state={age:0,...selected.s};history=[];used=[];$('start').classList.add('hidden');$('ending').classList.add('hidden');$('game').classList.remove('hidden');$('originName').textContent=selected.emoji+' '+selected.name+'・特質：'+selected.trait;nextEvent();}
+function getEvent(){let eligible=events.filter((e,i)=>!used.includes(i)&&state.age>=e.age[0]&&state.age<=e.age[1]);if(!eligible.length){let remaining=events.map((e,i)=>({...e,i})).filter(e=>!used.includes(e.i));if(!remaining.length)return null;eligible=remaining.sort((a,b)=>Math.abs((a.age[0]+a.age[1])/2-state.age)-Math.abs((b.age[0]+b.age[1])/2-state.age)).slice(0,1);}let chosen=eligible[Math.floor(Math.random()*eligible.length)];let idx=events.indexOf(chosen);used.push(idx);return chosen;}
+function nextEvent(){if(state.age>=88||used.length>=events.length){finish();return;}let ev=getEvent();if(!ev){finish();return;}renderEvent(ev);}
+function renderEvent(ev){$('age').textContent=state.age;$('yearLabel').textContent=state.age<13?'成長與探索':state.age<20?'青春期':state.age<35?'成年起步':state.age<55?'中年生活':state.age<70?'熟齡階段':'晚年篇章';$('progress').style.width=Math.min(100,state.age/88*100)+'%';$('stats').innerHTML=statsHTML(state);$('eventKind').textContent=ev.kind;$('eventTitle').textContent=ev.title;$('eventText').textContent=ev.text;$('choices').innerHTML=ev.opts.map((o,i)=>`<button class="choice" data-i="${i}"><span><b>${o[0]}</b><small>${o[1]}</small></span><span class="arrow">›</span></button>`).join('');document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>choose(ev,Number(b.dataset.i)));renderLog($('log'));}
+function choose(ev,i){let o=ev.opts[i],delta=o[2];Object.keys(delta).forEach(k=>state[k]=clamp(state[k]+delta[k]));history.push({age:state.age,title:ev.title,choice:o[0]});let jump=3+Math.floor(Math.random()*3);state.age=Math.min(88,state.age+jump);$('stats').innerHTML=statsHTML(state);nextEvent();}
+function renderLog(el){el.innerHTML=history.slice(-7).reverse().map(h=>`<div class="log"><time>${h.age}歲</time><p><b>${h.title}</b><br>${h.choice}</p></div>`).join('')||'<p style="font-size:13px;color:var(--muted)">第一個選擇即將出現。</p>'}
+function finish(){ $('game').classList.add('hidden');$('ending').classList.remove('hidden');let best=Object.entries({資源:state.money,活力:state.health,關係:state.relation,能力:state.skill}).sort((a,b)=>b[1]-a[1])[0][0];$('endingText').textContent=`你從「${selected.name}」出發，走到了人生的 ${state.age} 歲。這一路上，你做過 ${history.length} 個重要選擇。你最突出的累積是「${best}」。這不代表人生有固定分數，而是提醒你：每個選擇都讓故事長成不同模樣。即使有些事情不如預期，你仍然可以在下一個階段重新調整方向。`;$('finalStats').innerHTML=statsHTML(state);$('finalLog').innerHTML=history.map(h=>`<div class="log"><time>${h.age}歲</time><p><b>${h.title}</b><br>${h.choice}</p></div>`).join('');}
+function reset(){selected=null;$('game').classList.add('hidden');$('ending').classList.add('hidden');$('start').classList.remove('hidden');$('begin').disabled=true;document.querySelectorAll('.origin').forEach(x=>x.classList.remove('selected'));}
+$('begin').onclick=start;$('restart').onclick=reset;$('again').onclick=reset;$('replay').onclick=start;renderOrigins();
+</script>
+</body></html>
